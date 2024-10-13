@@ -32,20 +32,20 @@ sing-box：
 
   rule_set
 
-  ```
-        {
-          "type": "remote",
-          "tag": "",
-          "format": "",
-          "url": ""
-        }
-  ```
+```
+{
+  "type": "remote",
+  "tag": "",
+  "format": "",
+  "url": ""
+}
+```
   
-  rules
-
-  ```
-        {
-          "rule_set": "",
-          "outbound": ""
-        }
-  ```
+rules
+  
+```
+{
+  "rule_set": "",
+  "outbound": ""
+}
+```
