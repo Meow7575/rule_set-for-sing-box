@@ -28,9 +28,9 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
   - RULE-SET,xxxx,policy
 ```
 
-sing-box：
+## sing-box：
 
-  rule_set
+**rule_set**
 
 ```
 {
@@ -41,7 +41,7 @@ sing-box：
 }
 ```
   
-rules
+**rules**
   
 ```
 {
