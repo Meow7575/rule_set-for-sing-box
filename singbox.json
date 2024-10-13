@@ -1,0 +1,267 @@
+{
+  "log": {
+    "level": "debug",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "system-dns",
+        "address": "local",
+        "detour": "direct-out"
+      },
+// 国内正常地区建议使用223.5.5.5或者local,国外推荐使用tcp://8.8.8.8
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
+      },
+      {
+        "tag": "fakeip",
+        "address": "fakeip-dns"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "system-dns"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "fakeip-dns"
+      }
+    ],
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "mtu": 65535,
+      "address": [
+        "198.18.0.1/30",
+        "fc00::1/126"
+      ],
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "gvisor"
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 7890,
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "udp_fragment": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Proxy",
+      "outbounds": [
+        "HKG",
+        "USA"
+      ],
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "Openai",
+      "outbounds": [
+        "HKG",
+        "USA"
+      ],
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "Google",
+      "outbounds": [
+        "HKG",
+        "USA"
+      ],
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "Spotify",
+      "outbounds": [
+        "Proxy",
+        "direct-out"
+      ],
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "HKG",
+      "outbounds": null,
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "USA",
+      "outbounds": null,
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "direct",
+      "tag": "direct-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "block",
+      "tag": "block-out"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 853
+          },
+          {
+            "network": "udp",
+            "port": 443
+          },
+          {
+            "protocol": [
+              "stun",
+              "quic"
+            ]
+          }
+        ],
+        "outbound": "block-out"
+      },
+      {
+        "rule_set": "openai",
+        "outbound": "Openai"
+      },
+      {
+        "rule_set": [
+          "google_ip",
+          "google"
+        ],
+        "outbound": "Google"
+      },
+      {
+        "rule_set": "spotify",
+        "outbound": "Spotify"
+      },
+      {
+        "rule_set": [
+          "cn_ip",
+          "cn",
+          "lan_ip",
+          "lan"
+        ],
+        "outbound": "direct-out"
+      },
+      {
+        "rule_set": "httpdns",
+        "outbound": "block-out"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct-out"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "openai",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/Meow7575/rules_and_scripts/refs/heads/master/rules/OpenAI.json"
+      },
+      {
+        "type": "remote",
+        "tag": "google_ip",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geoip/google.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "google",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/google.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "cn_ip",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geoip/cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "cn",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "lan_ip",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geoip/private.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "lan",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/private.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "httpdns",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/Meow7575/rules_and_scripts/refs/heads/master/rules/httpDNS.json"
+      },
+      {
+        "type": "remote",
+        "tag": "spotify",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/spotify.srs"
+      }
+    ],
+    "final": "Proxy",
+    "auto_detect_interface": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "default_mode": "Rule"
+    }
+  }
+}
