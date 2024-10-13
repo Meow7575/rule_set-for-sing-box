@@ -28,24 +28,24 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
   - RULE-SET,xxxx,policy
 ```
 
-##sing-box
+sing-box：
 
-rule_set
+  rule_set
 
-```
-      {
-        "type": "remote",
-        "tag": "",
-        "format": "",
-        "url": ""
-      }
-```
+  ```
+        {
+          "type": "remote",
+          "tag": "",
+          "format": "",
+          "url": ""
+        }
+  ```
+  
+  rules
 
-rules
-
-```
-      {
-        "rule_set": "",
-        "outbound": ""
-      }
-```
+  ```
+        {
+          "rule_set": "",
+          "outbound": ""
+        }
+  ```
