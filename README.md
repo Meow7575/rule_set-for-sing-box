@@ -34,7 +34,7 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
 
 ```
 {
-  "type": "remote",
+  "type": "source",
   "tag": "",
   "format": "",
   "url": ""
