@@ -10,7 +10,7 @@
         "address": "local",
         "detour": "direct-out"
       },
-// 国内正常地区建议使用223.5.5.5或者local,国外推荐使用tcp://8.8.8.8
+#国内正常地区建议使用223.5.5.5或者local,国外推荐使用tcp://8.8.8.8
       {
         "tag": "block-dns",
         "address": "rcode://success"
@@ -67,51 +67,9 @@
     {
       "type": "selector",
       "tag": "Proxy",
-      "outbounds": [
-        "HKG",
-        "USA"
-      ],
+      "outbounds": [],
       "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "Openai",
-      "outbounds": [
-        "HKG",
-        "USA"
-      ],
-      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "Google",
-      "outbounds": [
-        "HKG",
-        "USA"
-      ],
-      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "Spotify",
-      "outbounds": [
-        "Proxy",
-        "direct-out"
-      ],
-      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "HKG",
-      "outbounds": null,
-      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "USA",
-      "outbounds": null,
-      "interrupt_exist_connections": true
-    },
+    }
     {
       "type": "direct",
       "tag": "direct-out"
@@ -161,21 +119,6 @@
         "outbound": "block-out"
       },
       {
-        "rule_set": "openai",
-        "outbound": "Openai"
-      },
-      {
-        "rule_set": [
-          "google_ip",
-          "google"
-        ],
-        "outbound": "Google"
-      },
-      {
-        "rule_set": "spotify",
-        "outbound": "Spotify"
-      },
-      {
         "rule_set": [
           "cn_ip",
           "cn",
@@ -194,24 +137,6 @@
       }
     ],
     "rule_set": [
-      {
-        "type": "remote",
-        "tag": "openai",
-        "format": "source",
-        "url": "https://raw.githubusercontent.com/Meow7575/rules_and_scripts/refs/heads/master/rules/OpenAI.json"
-      },
-      {
-        "type": "remote",
-        "tag": "google_ip",
-        "format": "binary",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geoip/google.srs"
-      },
-      {
-        "type": "remote",
-        "tag": "google",
-        "format": "binary",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/google.srs"
-      },
       {
         "type": "remote",
         "tag": "cn_ip",
@@ -241,12 +166,6 @@
         "tag": "httpdns",
         "format": "source",
         "url": "https://raw.githubusercontent.com/Meow7575/rules_and_scripts/refs/heads/master/rules/httpDNS.json"
-      },
-      {
-        "type": "remote",
-        "tag": "spotify",
-        "format": "binary",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/spotify.srs"
       }
     ],
     "final": "Proxy",
