@@ -10,7 +10,7 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
 ```
 
 ## clash
-用之前看文档
+用之前看官方文档
 
 **rule-providers:**
 
@@ -29,7 +29,7 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
 ```
 
 ## sing-box
-用之前看文档
+用之前看官方文档
 
 **rule_set**
 
