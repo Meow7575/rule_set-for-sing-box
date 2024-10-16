@@ -1,5 +1,5 @@
 # Rules
-//singbox的规则集几乎全部基于zhiqiang的surge规则集并用zhiqiang的脚本转换
+**singbox的规则集几乎全部基于zhiqiang的surge规则集并用zhiqiang的脚本转换**
 
 ## surge
 
