@@ -1,8 +1,0 @@
-#!name=ChatGPT MAC Unlock
-#!desc=解锁 ChatGPT Mac 版本测试账号限制，来自刘老师的X.\n如果已经打开过应用，先执行 rm ~/Library/Preferences/com.openai.* 清理本地缓存。\n警告，有可能会导致账户被封禁，请谨慎使用！
-
-[MITM]
-hostname = %APPEND% ab.chatgpt.com
-
-[Body Rewrite]
-http-response ^https://ab\.chatgpt\.com/v1/ '"gateValue":"false"' '"gateValue":"true"' "value":false "value":true
