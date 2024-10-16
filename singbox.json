@@ -10,7 +10,7 @@
         "address": "local",
         "detour": "direct-out"
       },
-// 国内正常地区建议使用"223.5.5.5"或者"local",国外推荐使用"tcp://8.8.8.8"或"tcp://1.1.1.1"
+      // 国内正常地区建议使用"223.5.5.5"或者"local",国外推荐使用"tcp://8.8.8.8"或"tcp://1.1.1.1"
       {
         "tag": "block-dns",
         "address": "rcode://success"
