@@ -18,7 +18,7 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
     type: http
     behavior: classical
     format: text
-    url: 
+    url: ''
 ```
 
 **rules:**
