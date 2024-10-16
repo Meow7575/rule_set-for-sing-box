@@ -18,15 +18,13 @@ RULE-SET,https://raw.githubusercontent.com/../xxxx.list,policy
     type: http
     behavior: classical
     format: text
-    path: ./ruleset/xxxx.list 
-    url: "https://raw.githubusercontent.com/../xxxx.list"
-    interval: 86400
+    url: 
 ```
 
 **rules:**
 
 ```
-  - RULE-SET,xxxx,policy
+  - RULE-SET,xxxx,#策略组
 ```
 
 ## sing-box
