@@ -1,7 +1,0 @@
-# Only TW2 & PBE
-# Last Update: Jun 11
-IP-CIDR,103.240.224.128/26,no-resolve
-IP-CIDR,103.240.225.128/26,no-resolve
-IP-CIDR,151.106.247.16/32,no-resolve
-IP-CIDR,192.64.170.0/26,no-resolve
-IP-CIDR,188.42.147.0/24,no-resolve
